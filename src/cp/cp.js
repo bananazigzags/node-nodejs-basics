@@ -4,4 +4,4 @@ const spawnChildProcess = async (args) => {
   fork("./src/cp/files/script.js", args);
 };
 
-spawnChildProcess();
+spawnChildProcess(["firstArg", 23]);

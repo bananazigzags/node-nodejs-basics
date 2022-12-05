@@ -1,13 +1,15 @@
-import { rename as renameFile } from "node:fs";
+import { rename as renameFile, existsSync } from "node:fs";
 
 const rename = async () => {
-  renameFile(
-    "./src/fs/files/wrongFilename.txt",
-    "./src/fs/files/properFilename.md",
-    (err) => {
-      if (err) throw new Error("FS operation failed");
-    }
-  );
+  const basePath = "./src/fs/files";
+  const oldPath = `${basePath}/wrongFilename.txt`;
+  const newPath = `${basePath}/properFilename.md`;
+
+  if (existsSync(newPath)) throw new Error("FS operation failed");
+
+  renameFile(oldPath, newPath, (err) => {
+    if (err) throw new Error("FS operation failed");
+  });
 };
 
 await rename();
