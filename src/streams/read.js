@@ -1,8 +1,12 @@
 import { createReadStream } from "node:fs";
+import { join } from "node:path";
+import * as url from "url";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const read = async () => {
-  const filePath = new URL("./files/fileToRead.txt", import.meta.url);
-  const fileContent = createReadStream(filePath);
+  const fileContent = createReadStream(
+    join(__dirname, "files", "fileToRead.txt")
+  );
   fileContent.on("data", (chunk) => {
     process.stdout.write(chunk);
   });

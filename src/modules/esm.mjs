@@ -3,6 +3,7 @@ import { release, version } from "node:os";
 import { createServer as createServerHttp } from "node:http";
 import "./files/c.js";
 import * as url from "url";
+import { join } from "node:path";
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -12,14 +13,12 @@ const random = Math.random();
 
 let unknownObject;
 
+const filesPath = join(__dirname, "files");
+
 if (random > 0.5) {
-  unknownObject = JSON.parse(
-    await readFile(new URL("./files/a.json", import.meta.url))
-  );
+  unknownObject = JSON.parse(await readFile(join(filesPath, "a.json")));
 } else {
-  unknownObject = JSON.parse(
-    await readFile(new URL("./files/b.json", import.meta.url))
-  );
+  unknownObject = JSON.parse(await readFile(join(filesPath, "b.json")));
 }
 
 console.log(`Release ${release()}`);

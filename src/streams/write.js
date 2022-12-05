@@ -1,5 +1,8 @@
 import { createWriteStream } from "node:fs";
 import * as readline from "node:readline/promises";
+import { join } from "node:path";
+import * as url from "url";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const write = async () => {
   const rl = readline.createInterface({
@@ -8,8 +11,9 @@ const write = async () => {
     prompt: "What should I write?\n",
   });
 
-  const filePath = new URL("./files/fileToWrite.txt", import.meta.url);
-  const writeStream = createWriteStream(filePath);
+  const writeStream = createWriteStream(
+    join(__dirname, "files", "fileToWrite.txt")
+  );
 
   rl.prompt();
 

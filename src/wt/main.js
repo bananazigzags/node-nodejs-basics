@@ -1,5 +1,8 @@
 import { Worker } from "node:worker_threads";
 import os from "node:os";
+import { join } from "node:path";
+import * as url from "url";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const performCalculations = async () => {
   const numCpus = os.cpus().length;
@@ -7,7 +10,7 @@ const performCalculations = async () => {
   let promises = [];
   for (let i = 0; i < numCpus; i++) {
     const promise = new Promise((resolve, reject) => {
-      let worker = new Worker("./src/wt/worker.js", {
+      let worker = new Worker(join(__dirname, "worker.js"), {
         workerData: num + i,
       });
       worker
