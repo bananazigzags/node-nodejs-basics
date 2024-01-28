@@ -1,6 +1,9 @@
+import { fork } from "node:child_process";
+
+const fileToFork = new URL("files/script.js", import.meta.url);
+
 const spawnChildProcess = async (args) => {
-    // Write your code here
+  fork(fileToFork, args);
 };
 
-// Put your arguments in function call to test this functionality
-spawnChildProcess( /* [someArgument1, someArgument2, ...] */);
+spawnChildProcess(["firstArg", 23]);
